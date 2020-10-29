@@ -23,7 +23,6 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username })
         .select('-__v -password')
-        .populate('savedBooks')
     },
 
     // get all books for logged in user
@@ -34,10 +33,10 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    // get book by title for logged in user
+    // get single book for logged in user
     book: async (parent, { _id }, context) => {
       if (context.user) {
-        return Book.findOne({ _id: _id, user_id: context.user_id })
+        return Book.findOne({ _id: _id })
       }
       throw new AuthenticationError('Not logged in');
     },
@@ -66,15 +65,16 @@ const resolvers = {
 
     addBook: async (parent, { bookData }, context) => {
       if (context.user) {
-         const book = await Book.create({ ...bookData });
+        const book = await Book.create({ ...bookData });
         return book;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
     removeBook: async (parent, { _id }, context) => {
       if (context.user) {
         const updatedBook = await Book.findOneAndDelete(
-          { _id: { _id }},
+          { _id: { _id } },
         );
         return updatedBook;
       }
