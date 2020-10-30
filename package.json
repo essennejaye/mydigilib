@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
-  "dependencies": {
-    "if-env": "^1.0.4"
-  },
-  "devDependencies": {
-    "concurrently": "^5.3.0"
-  },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "cd server && npm start",
@@ -27,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/essennejaye/bookworms-bibliography/issues"
   },
-  "homepage": "https://github.com/essennejaye/bookworms-bibliography#readme"
+  "homepage": "https://github.com/essennejaye/bookworms-bibliography#readme",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
 }
