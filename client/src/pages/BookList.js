@@ -1,15 +1,20 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_BOOKS } from '../utils/queries';
-import {  Container, CardColumns, Card } from 'react-bootstrap';
+import { Container, CardColumns, Card } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
 
 // import Auth from '../utils/auth';
 
-const BookList = () => {
-  const { loading, data } = useQuery(QUERY_BOOKS);
+const BookList = (props) => {
+  const { user_id } = useParams();
 
-  const bookData = data?.books || [];
-  // const loggedIn = Auth.login();
+  const { loading, data } = useQuery(QUERY_BOOKS, {
+    variables: { user_id }
+  });
+
+  const books = data?.books || [];
+  // const loggedIn = Auth.loggedIn();
 
   if (loading) {
     return <h2>Loading...</h2>
@@ -19,20 +24,22 @@ const BookList = () => {
     <>
       <Container>
         <h2>
-          {bookData.length ?
+          {books.length ?
             `Your Library Catalogue` : 'Please Add Some Books To Your Catalog'}
         </h2>
         <CardColumns>
-          {bookData.map((book) => {
+          {books.map((book) => {
             return (
               <Card key={book._id} border='dark'>
-                {book.image ? (
-                  <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className='small'>Authors: {book.authors}</p>
-                </Card.Body>
+                <Link to={`/book/${book._id}`}>
+                  {book.image ? (
+                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
+                  ) : null}
+                  <Card.Body>
+                    <Card.Title>{book.title}</Card.Title>
+                    <p className='small'>Authors: {book.authors}</p>
+                  </Card.Body>
+                </Link>
               </Card>
 
             )

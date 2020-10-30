@@ -11,8 +11,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
 import BookList from './pages/BookList';
-// import SingleBook from './pages/SingleBook';
-// import AddBook from './pages/AddBook';
+import SingleBook from './pages/SingleBook';
+import AddBook from './pages/AddBook';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -26,7 +26,7 @@ const client = new ApolloClient({
       },
     });
   },
-  uri: '/graphql',
+  uri: '/graphql',  
 });
 
 function App() {
@@ -40,9 +40,9 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/books/:id" component={BookList} />
-              {/* <Route exact path="/addbook" component={AddBook} />
-              <Route exact path="/book/:id" component={SingleBook} /> */}
+              <Route exact path='/books/:user_id' component={BookList} />
+              <Route exact path="/addbook" component={AddBook} />
+              <Route exact path="/book/:_id" component={SingleBook} />
 
               <Route component={NoMatch} />
             </Switch>
