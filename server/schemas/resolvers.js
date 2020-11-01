@@ -41,7 +41,7 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-
+  },
 
     Mutation: {
       addUser: async (parent, args) => {
@@ -78,10 +78,7 @@ const resolvers = {
           return duplicatebook;
         }
         throw new AuthenticationError('Not logged in');
-      }
-    },
-
-
+      },
 
     removeBook: async (parent, { _id }, context) => {
       if (context.user) {
@@ -92,7 +89,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-  },
+    }
 };
 
 module.exports = resolvers;

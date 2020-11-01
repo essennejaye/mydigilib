@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks';
 // import { Link, useParams } from 'react-router-dom';
 import Auth from '../utils/auth';
-import { ADD_BOOK } from '../utils/mutations';
+import { ADD_BOOK, DUPLICATEBOOK } from '../utils/mutations';
 import { Form, Button, Col, Card, Container } from 'react-bootstrap';
 
 const AddBook = () => {
+
   // create state for holding search result
   const [searchedBook, setSearchedBook] = useState({});
   // create state for data form
   const [searchInput, setSearchInput] = useState('');
-
+  // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
+  // mutation to check if bookis already in catalog
+  const [duplicateBook, { error }] = useMutation(DUPLICATEBOOK);
 
   // create method to search for book and set state on form submit
   const handleFormSubmit = async (event) => {

@@ -25,7 +25,7 @@ export const ADD_USER = gql`
 `;
 
 export const DUPLICATEBOOK = gql`
-  mutation duplicateBook($bookISBN: String) {
+  mutation duplicateBook($bookISBN: String!) {
     duplicateBook(bookISBN: $bookISBN) {
       bookISBN
     }
