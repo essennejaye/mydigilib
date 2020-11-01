@@ -29,6 +29,7 @@ const resolvers = {
     books: async (parent, { user_id }, context) => {
       if (context.user) {
         return Book.find({ user_id })
+          .sort('title: 1')
       }
       throw new AuthenticationError('Not logged in');
     },
@@ -40,36 +41,47 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-  },
 
-  Mutation: {
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
-    },
 
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+    Mutation: {
+      addUser: async (parent, args) => {
+        const user = await User.create(args);
+        const token = signToken(user);
+        return { token, user };
+      },
 
-      if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+      login: async (parent, { email, password }) => {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+          throw new AuthenticationError('Incorrect credentials');
+        }
+        // const correctPw = await user.isCorrectPassword(password);
+        // if (!correctPw) {
+        //   throw new AuthenticationError('Incorrect credentials');
+        // }
+        const token = signToken(user);
+        return { token, user };
+      },
+
+      addBook: async (parent, { bookData }, context) => {
+        if (context.user) {
+          const book = await Book.create({ ...bookData });
+          return book;
+        }
+        throw new AuthenticationError('You need to be logged in!');
+      },
+
+      duplicateBook: async (parent, { bookISBN }, context) => {
+        if (context.user) {
+          const duplicatebook = await Book.findOne({ bookISBN: bookISBN })
+          return duplicatebook;
+        }
+        throw new AuthenticationError('Not logged in');
       }
-      // const correctPw = await user.isCorrectPassword(password);
-      // if (!correctPw) {
-      //   throw new AuthenticationError('Incorrect credentials');
-      // }
-      const token = signToken(user);
-      return { token, user };
     },
 
-    addBook: async (parent, { bookData }, context) => {
-      if (context.user) {
-        const book = await Book.create({ ...bookData });
-        return book;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
+
 
     removeBook: async (parent, { _id }, context) => {
       if (context.user) {
