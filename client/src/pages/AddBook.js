@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_BOOK } from '../utils/mutations';
-import { Form, Button, Card, Container } from 'react-bootstrap';
+import { Form, Button, Col, Card, Container } from 'react-bootstrap';
 
 const AddBook = () => {
-  // create state for holding search result
-  const [searchedBook, setSearchedBook] = useState();
-  // create state for data feom form
-  const [searchInput, setSearchInput] = useState('');
 
+  // create state for holding search result
+  const [searchedBook, setSearchedBook] = useState({});
+  // create state for data form
+  const [searchInput, setSearchInput] = useState('');
+  // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
   // create method to search for book and set state on form submit
@@ -17,26 +18,32 @@ const AddBook = () => {
     event.preventDefault();
 
     if (!searchInput) {
-      alert('You must enter a valid ISBN!')
+      alert('You must enter a valid ISBN!');
       return false;
     }
+    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${searchInput}`
     try {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?isbn:${searchInput}`);
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Something went wrong!')
+        throw new Error('Oops, something went wrong!');
       }
-      const { book } = await response.json();
+      const { items } = await response.json();
+      const item = items[0];
+
+      if (!item) {
+        throw new Error('Book was not retreived, Please try again!');
+      }
 
       const bookData = {
         user_id: localStorage.getItem('user_id'),
-        authors: book.volumeInfo.authors || ['No author to display'],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
-        pages: book.volumeInfo.pages,
-        bookISBN: searchedBook,
-        datePublish: book.volumeInfo.datePublished,
-        category: book.volumeInfo.mainCategory
+        authors: item.volumeInfo.authors || ['No author to display'],
+        title: item.volumeInfo.title,
+        description: item.volumeInfo.description,
+        image: item.volumeInfo.imageLinks?.thumbnail || '',
+        pages: item.volumeInfo.pageCount,
+        bookISBN: searchInput,
+        datePublish: item.volumeInfo.publishedDate,
+        category: item.volumeInfo.categories
       };
       setSearchedBook(bookData);
       setSearchInput('');
@@ -44,6 +51,7 @@ const AddBook = () => {
       console.error(e);
     }
   };
+
   // create function to handle saving book to database
   const handleSaveBook = async () => {
     const bookToAdd = searchedBook;
@@ -54,7 +62,7 @@ const AddBook = () => {
     }
     try {
       await addBook({
-        variables: { bookData: { ...bookToAdd } }
+        variables: { bookData: bookToAdd }
       })
       window.location.assign(`/books/${localStorage.getItem('user_id')}`)
     } catch (e) {
@@ -69,17 +77,19 @@ const AddBook = () => {
         <h3>Please enter the 13 digit ISBN, without spaces or dashes!</h3>
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
-            <Form.Control
-              name='searchInput'
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              type='text'
-              size='lg'
-              placeholder='Enter ISBN to search for a book'
-            />
-            <Button type='submit' variant='success' size='lg'>
-              Submit Search
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchInput'
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                type='text'
+                size='lg'
+                placeholder='Enter ISBN to search for a book'
+              />
+              <Button type='submit' variant='success' size='lg'>
+                Submit Search
                 </Button>
+            </Col>
           </Form.Row>
         </Form>
       </Container>
@@ -87,7 +97,7 @@ const AddBook = () => {
         <h2>
           {searchedBook
             ? `Results:`
-            : 'No book found'}
+            : 'Book not found'}
         </h2>
         <Card border='dark'>
           {searchedBook.image ? (
@@ -109,7 +119,7 @@ const AddBook = () => {
                 {/* ? 'Book Already Saved!'
                         : 'Save This Book!'} */}
               </Button>
-            )}
+             )} 
           </Card.Body>
         </Card>
         {error && <div>Oops, something went wrong</div>}

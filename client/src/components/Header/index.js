@@ -16,7 +16,7 @@ const Header = () => {
         <nav className='text-center'>
           {Auth.loggedIn() ? (
             <>
-              <Link to={`/books/${localStorage.getItem('userId')}`}>List My Books</Link>
+              <Link to={`/books/${localStorage.getItem('user_id')}`}>List My Books</Link>
               <Link to='/addbook'>Add a Book</Link>
               <a href='/' onClick={logout}>
                 Logout
