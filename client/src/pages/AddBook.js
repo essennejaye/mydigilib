@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery, useMutation } from '@apollo/react-hooks';
-// import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_BOOK } from '../utils/mutations';
 import { Form, Button, Card, Container } from 'react-bootstrap';
@@ -18,12 +17,13 @@ const AddBook = () => {
     event.preventDefault();
 
     if (!searchInput) {
+      alert('You must enter a valid ISBN!')
       return false;
     }
     try {
       const response = await fetch(`https://www.googleapis.com/books/v1/volumes?isbn:${searchInput}`);
       if (!response.ok) {
-        throw new Error('somrthing went wrong!')
+        throw new Error('Something went wrong!')
       }
       const { book } = await response.json();
 
@@ -66,7 +66,7 @@ const AddBook = () => {
     <>
       <Container>
         <h1>Search for Books!</h1>
-        <h3>Please enter a 10 or 13 digit ISBN, without spaces or dashes!</h3>
+        <h3>Please enter the 13 digit ISBN, without spaces or dashes!</h3>
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
             <Form.Control
@@ -85,7 +85,7 @@ const AddBook = () => {
       </Container>
       <Container>
         <h2>
-          {searchedBook.length
+          {searchedBook
             ? `Results:`
             : 'No book found'}
         </h2>
@@ -96,11 +96,11 @@ const AddBook = () => {
           <Card.Body>
             <Card.Title>{searchedBook.title}</Card.Title>
             <p className='small'>Authors: {searchedBook.authors}</p>
-            <Card.Text>{searchedBook.description}</Card.Text>
-            <Card.Text>{searchedBook.pages}</Card.Text>
-            <Card.Text>{searchedBook.category}</Card.Text>
-            <Card.Text>{searchedBook.datePublish}</Card.Text>
-            <Card.Text>{searchedBook.bookISBN}</Card.Text>
+            <Card.Text>Description {searchedBook.description}</Card.Text>
+            <Card.Text>Pages {searchedBook.pages}</Card.Text>
+            <Card.Text>Category {searchedBook.category}</Card.Text>
+            <Card.Text>Date Published {searchedBook.datePublish}</Card.Text>
+            <Card.Text>ISBN {searchedBook.bookISBN}</Card.Text>
             <Card.Text>{searchedBook.user_id}</Card.Text>
             {Auth.loggedIn() && (
               <Button
@@ -112,6 +112,7 @@ const AddBook = () => {
             )}
           </Card.Body>
         </Card>
+        {error && <div>Oops, something went wrong</div>}
       </Container>
     </>
   )
