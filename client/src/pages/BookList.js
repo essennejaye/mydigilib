@@ -16,7 +16,7 @@ const BookList = (props) => {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
   if (!token) { 
-    console.error('You must be logged in to get your book list!');
+    alert('You must be logged in to get your book list!');
     return false;
   }
 
@@ -29,7 +29,7 @@ const BookList = (props) => {
       <Container>
         <h2>
           {books.length ?
-            `Your Library Catalog has ${books.length} ${books.length ===1 ? 'book' : 'books'}`
+            `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
             : 'Please Add Some Books To Your Catalog'}
         </h2>
         <CardColumns>

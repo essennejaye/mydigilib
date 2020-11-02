@@ -1,12 +1,13 @@
 import React from 'react';
-import {  BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 // import Auth from './utils/auth';
 
+import { Layout } from './components/Layout';
 import Header from './components/Header';
 import Footer from './components/Footer';
-
+import { Jumbotron } from './components/Jumbotron';
 
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
@@ -26,16 +27,17 @@ const client = new ApolloClient({
       },
     });
   },
-  uri: '/graphql',  
+  uri: '/graphql',
 });
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div className='flex-column justify-flex-start min-100-vh'>
+    <>
+      <ApolloProvider client={client}>
+        <Router>
           <Header />
-          <div className='container'>
+          <Jumbotron />
+          <Layout>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
@@ -46,11 +48,11 @@ function App() {
 
               <Route component={NoMatch} />
             </Switch>
-          </div>
-          <Footer />
-        </div>
-      </Router>
-    </ApolloProvider>
+            <Footer />
+          </Layout>
+        </Router>
+      </ApolloProvider>
+    </>
   );
 };
 

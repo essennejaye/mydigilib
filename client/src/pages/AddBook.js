@@ -8,7 +8,7 @@ const AddBook = () => {
 
   // create state for holding search result
   const [searchedBook, setSearchedBook] = useState({});
-  // create state for data form
+  // create state for form
   const [searchInput, setSearchInput] = useState('');
   // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
@@ -53,11 +53,12 @@ const AddBook = () => {
   };
 
   // create function to handle saving book to database
-  const handleSaveBook = async () => {
+  const handleAddBook = async () => {
     const bookToAdd = searchedBook;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
+      alert('You are not logged in!')
       return false;
     }
     try {
@@ -74,7 +75,7 @@ const AddBook = () => {
     <>
       <Container>
         <h1>Search for Books!</h1>
-        <h3>Please enter the 13 digit ISBN, without spaces or dashes!</h3>
+        <h4>Please enter the 13 digit ISBN, without spaces or dashes!</h4>
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
             <Col xs={12} md={8}>
@@ -93,7 +94,7 @@ const AddBook = () => {
           </Form.Row>
         </Form>
       </Container>
-      <Container>
+      <Container className='hide'>
         <h2>
           {searchedBook
             ? `Results:`
@@ -105,24 +106,22 @@ const AddBook = () => {
           ) : null}
           <Card.Body>
             <Card.Title>{searchedBook.title}</Card.Title>
-            <p className='small'>Authors: {searchedBook.authors}</p>
+            <Card.Text>Authors: {searchedBook.authors}</Card.Text>
             <Card.Text>Description {searchedBook.description}</Card.Text>
             <Card.Text>Pages {searchedBook.pages}</Card.Text>
             <Card.Text>Category {searchedBook.category}</Card.Text>
             <Card.Text>Date Published {searchedBook.datePublish}</Card.Text>
             <Card.Text>ISBN {searchedBook.bookISBN}</Card.Text>
-            <Card.Text>{searchedBook.user_id}</Card.Text>
             {Auth.loggedIn() && (
               <Button
                 className='btn-block btn-info'
-                onClick={() => handleSaveBook()}>
-                {/* ? 'Book Already Saved!'
-                        : 'Save This Book!'} */}
+                onClick={() => handleAddBook()}>
+                  Add This Book
               </Button>
              )} 
           </Card.Body>
         </Card>
-        {error && <div>Oops, something went wrong</div>}
+        {error && <div><h2>Oops, something went wrong</h2></div>}
       </Container>
     </>
   )
