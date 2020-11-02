@@ -14,6 +14,9 @@ const Styles = styled.div`
       color: orange;
     }
   }
+  .navbar-toggler-icon {
+    background-color: white;
+  }
 `;
 
 const Header = () => {
