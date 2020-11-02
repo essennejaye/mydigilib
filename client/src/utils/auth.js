@@ -8,7 +8,7 @@ class AuthService {
     return decode(this.getToken());
   }
 
-  // check if user's logged in
+  // check if user is logged in
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
@@ -36,7 +36,8 @@ class AuthService {
     localStorage.setItem('id_token', data.token);
     localStorage.setItem('user_id', data.user._id);
     const user_id = data.user._id;
-    window.location.assign(`/books/${user_id}`);
+    // window.location.assign(`/books/${user_id}`);
+    window.location.assign('/');
   }
 
   logout() {

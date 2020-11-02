@@ -48,7 +48,7 @@ const Login = (props) => {
         <Form.Control
           className='form-input'
           name='email'
-          id='email'
+          // id='email'
           type="email"
           placeholder="Enter email"
           value={formState.email}
@@ -63,7 +63,7 @@ const Login = (props) => {
         <Form.Control
           className='form-input'
           name='password'
-          id='password'
+          // id='password'
           type="password"
           placeholder="Password"
           value={formState.password}

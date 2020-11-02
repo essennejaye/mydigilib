@@ -4,10 +4,10 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 // import Auth from './utils/auth';
 
-import { Layout } from './components/Layout';
+import Layout from './components/Layout';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Jumbotron } from './components/Jumbotron';
+import Jumbotron from './components/Jumbotron';
 
 import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
@@ -45,7 +45,6 @@ function App() {
               <Route exact path='/books/:user_id' component={BookList} />
               <Route exact path="/addbook" component={AddBook} />
               <Route exact path="/book/:_id" component={SingleBook} />
-
               <Route component={NoMatch} />
             </Switch>
             <Footer />
