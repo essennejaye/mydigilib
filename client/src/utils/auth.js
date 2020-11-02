@@ -34,7 +34,7 @@ class AuthService {
 
   login(data) {
     localStorage.setItem('id_token', data.token);
-    localStorage.setItem('userId', data.user._id);
+    localStorage.setItem('user_id', data.user._id);
     const user_id = data.user._id;
     window.location.assign(`/books/${user_id}`);
   }

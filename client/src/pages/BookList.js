@@ -3,8 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { QUERY_BOOKS } from '../utils/queries';
 import { Container, CardColumns, Card } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
-
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 const BookList = (props) => {
   const { user_id } = useParams();
@@ -14,7 +13,12 @@ const BookList = (props) => {
   });
 
   const books = data?.books || [];
-  // const loggedIn = Auth.loggedIn();
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  if (!token) { 
+    alert('You must be logged in to get your book list!');
+    return false;
+  }
 
   if (loading) {
     return <h2>Loading...</h2>
@@ -25,7 +29,8 @@ const BookList = (props) => {
       <Container>
         <h2>
           {books.length ?
-            `Your Library Catalogue` : 'Please Add Some Books To Your Catalog'}
+            `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
+            : 'Please Add Some Books To Your Catalog'}
         </h2>
         <CardColumns>
           {books.map((book) => {
