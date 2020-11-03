@@ -2,7 +2,24 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_BOOK } from '../utils/mutations';
-import { Form, Button, Col, Card, Container } from 'react-bootstrap';
+import { Form, Button, Card, Container } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const Styles = styled.div
+  `
+ .book-image {
+   width: 500px;
+   height: 500px;
+ }
+ .book-card {
+   width: 500px;
+   justify-content: 
+ }
+ div.result-container {
+   width: fit-content;
+   margin: 50px auto 0px auto;
+ }
+ `;
 
 const AddBook = () => {
 
@@ -10,6 +27,7 @@ const AddBook = () => {
   const [searchedBook, setSearchedBook] = useState({});
   // create state for form
   const [searchInput, setSearchInput] = useState('');
+
   // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
@@ -73,56 +91,56 @@ const AddBook = () => {
 
   return (
     <>
-      <Container>
-        <h1>Search for Books!</h1>
-        <h4>Please enter the 13 digit ISBN, without spaces or dashes!</h4>
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Row>
-            <Col xs={12} md={8}>
-              <Form.Control
-                name='searchInput'
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                type='text'
-                size='lg'
-                placeholder='Enter ISBN to search for a book'
-              />
-              <Button type='submit' variant='success' size='lg'>
-                Submit Search
-                </Button>
-            </Col>
-          </Form.Row>
+      <Styles>
+        <Form onSubmit={handleFormSubmit} className='text-center'>
+          <Form.Group className="form-group">
+            <Form.Label><h3>ISBN</h3></Form.Label>
+            <h4>Please enter the 13 digit ISBN without spaces or dashes!</h4>
+            <Form.Control
+              size='lg'
+              name='searchInput'
+              type="text"
+              placeholder="ISBN"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+        </Button>
         </Form>
-      </Container>
-      <Container className='hide'>
-        <h2>
-          {searchedBook
-            ? `Results:`
-            : 'Book not found'}
-        </h2>
-        <Card border='dark'>
-          {searchedBook.image ? (
-            <Card.Img src={searchedBook.image} alt={`The cover for ${searchedBook.title}`} variant='top' />
-          ) : null}
-          <Card.Body>
-            <Card.Title>{searchedBook.title}</Card.Title>
-            <Card.Text>Authors: {searchedBook.authors}</Card.Text>
-            <Card.Text>Description {searchedBook.description}</Card.Text>
-            <Card.Text>Pages {searchedBook.pages}</Card.Text>
-            <Card.Text>Category {searchedBook.category}</Card.Text>
-            <Card.Text>Date Published {searchedBook.datePublish}</Card.Text>
-            <Card.Text>ISBN {searchedBook.bookISBN}</Card.Text>
-            {Auth.loggedIn() && (
-              <Button
-                className='btn-block btn-info'
-                onClick={() => handleAddBook()}>
+
+        <Container className=' result-container'>
+          <h2>
+            {searchedBook ?
+              `Results:`
+              : `Book not found`}
+          </h2>
+          <Card border='dark' className='book-card'>
+            {searchedBook.image ? (
+              <Card.Img src={searchedBook.image} alt={`The cover for ${searchedBook.title}`} variant='top'
+                className='book-image' />
+            ) : null}
+            <Card.Body>
+              <Card.Title>{searchedBook.title}</Card.Title>
+              <Card.Text>Authors: {searchedBook.authors}</Card.Text>
+              <Card.Text>Description {searchedBook.description}</Card.Text>
+              <Card.Text>Pages {searchedBook.pages}</Card.Text>
+              <Card.Text>Category {searchedBook.category}</Card.Text>
+              <Card.Text>Date Published {searchedBook.datePublish}</Card.Text>
+              <Card.Text>ISBN {searchedBook.bookISBN}</Card.Text>
+              {Auth.loggedIn() && (
+                <Button
+                  className='btn-block btn-info'
+                  onClick={() => handleAddBook()}>
                   Add This Book
-              </Button>
-             )} 
-          </Card.Body>
-        </Card>
-        {error && <div><h2>Oops, something went wrong</h2></div>}
-      </Container>
+                </Button>
+              )}
+            </Card.Body>
+          </Card>
+          {error && <div><h2>Oops, something went wrong</h2></div>}
+        </Container>
+      </Styles>
     </>
   )
 }

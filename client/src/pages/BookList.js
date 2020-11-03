@@ -4,6 +4,21 @@ import { QUERY_BOOKS } from '../utils/queries';
 import { Container, CardColumns, Card } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import styled from 'styled-components';
+
+const Styles = styled.div
+  `
+ .book-image {
+   width: 300x;
+   height: 300px;
+ }
+ .book-card {
+   justify-content: 
+ }
+ h2 {
+   text-align: center;
+ }
+ `;
 
 const BookList = (props) => {
   const { user_id } = useParams();
@@ -26,6 +41,7 @@ const BookList = (props) => {
 
   return (
     <>
+    <Styles>
       <Container>
         <h2>
           {books.length ?
@@ -35,10 +51,11 @@ const BookList = (props) => {
         <CardColumns>
           {books.map((book) => {
             return (
-              <Card key={book._id} border='dark'>
+              <Card key={book._id} border='dark' className='book-card'>
                 <Link to={`/book/${book._id}`}>
                   {book.image ? (
-                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
+                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top'
+                    className='book-image' />
                   ) : null}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
@@ -51,6 +68,7 @@ const BookList = (props) => {
           })}
         </CardColumns>
       </Container>
+      </Styles>
     </>
   )
 }
