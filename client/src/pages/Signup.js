@@ -34,11 +34,12 @@ const Signup = () => {
   };
 
   return (
-    <Form onSubmit={handleFormSubmit}>
+    <Form onSubmit={handleFormSubmit} className='text-center'>
       <h4>Signup</h4>
-      <Form.Group controlId="formBasicUsername">
+      <Form.Group className="form-group">
         <Form.Label>Your Username</Form.Label>
         <Form.Control
+          size='lg'
           className='form-input'
           name='username'
           id='username'
@@ -48,9 +49,10 @@ const Signup = () => {
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+      <Form.Group className='form-group'>
+        <Form.Label size='lg'>Email address</Form.Label>
         <Form.Control
+          size='lg'
           className='form-input'
           name='email'
           id='email'
@@ -63,12 +65,13 @@ const Signup = () => {
           We'll never share your email with anyone else.
        </Form.Text>
       </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+      <Form.Group className='form-group'>
+        <Form.Label size='lg'>Password</Form.Label>
         <Form.Control
           className='form-input'
           name='password'
           id='password'
+          size='lg'
           type="password"
           placeholder="Password"
           value={formState.password}

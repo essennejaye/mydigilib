@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <>
       <FootStyles>
-          <div style={{ float: 'left ' }}>© 2020 Copyright: Essenne Jaye</div>
+          <div>© 2020 Essenne Jaye</div>
           <div style={{ float: 'right' }} className='ml-auto'>
             <Nav.Link as={Link} to='/'>MyDigiLib</Nav.Link>
           </div>

@@ -41,11 +41,12 @@ const Login = (props) => {
   }
 
   return (
-    <Form onSubmit={handleFormSubmit}>
+    <Form onSubmit={handleFormSubmit} className='text-center'>
       <h4>Login</h4>
-      <Form.Group controlId="formBasicEmail">
+      <Form.Group className='form-group'>
         <Form.Label>Email address</Form.Label>
         <Form.Control
+          size='lg'
           className='form-input'
           name='email'
           id='email'
@@ -58,9 +59,10 @@ const Login = (props) => {
           We'll never share your email with anyone else.
        </Form.Text>
       </Form.Group>
-      <Form.Group controlId="formBasicPassword">
+      <Form.Group className='form-group'>
         <Form.Label>Password</Form.Label>
         <Form.Control
+          size='lg'
           className='form-input'
           name='password'
           id='password'
