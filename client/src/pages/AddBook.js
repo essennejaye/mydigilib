@@ -20,6 +20,12 @@ const ContainerShow = styled.div
    width: fit-content;
    margin: 50px auto 0px auto;
  }
+  .no-result-container {
+  display: ${props => props.show ? 'block' : 'none'};
+   width: fit-content;
+   margin: 50px auto 0px auto;
+ }
+
  `;
 
 const AddBook = () => {
@@ -50,10 +56,12 @@ const AddBook = () => {
       const item = items ? items[0] : null;
 
       if (!item) {
-        alert('That ISBN was not found!');
+        // alert('That ISBN was not found!');
         setSearchInput('');
         setSearchedBook(null);
-        return;
+        return (<>
+        {<h1>That ISBN was not found!</h1>}
+        </>);
       }
 
       const bookData = {

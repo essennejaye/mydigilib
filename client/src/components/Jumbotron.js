@@ -7,7 +7,7 @@ const Styles = styled.div`
   .jumbo {
     background: url(${digbook1}) no-repeat;
     background-size: cover;
-    color: #efefef;
+    color: white;
     height: 200px;
     position: relative;
     z-index: -2;
