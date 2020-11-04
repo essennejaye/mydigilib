@@ -16,24 +16,20 @@ const ContainerShow = styled.div
    justify-content: 
  }
  .result-container {
-  display: ${props => props.show ? 'block' : 'none'};
+   display: ${props => props.show ? 'block' : 'none'};
    width: fit-content;
    margin: 50px auto 0px auto;
  }
-  .no-result-container {
-  display: ${props => props.show ? 'block' : 'none'};
-   width: fit-content;
-   margin: 50px auto 0px auto;
- }
-
  `;
 
 const AddBook = () => {
 
   // create state for holding search result
-  const [searchedBook, setSearchedBook] = useState(null);
+  const [searchedBook, setSearchedBook] = useState('');
   // create state for form
   const [searchInput, setSearchInput] = useState('');
+  // create state for error message
+  const [errorMessage, setErrorMessage] = useState(false);
 
   // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
@@ -56,13 +52,11 @@ const AddBook = () => {
       const item = items ? items[0] : null;
 
       if (!item) {
-        // alert('That ISBN was not found!');
         setSearchInput('');
-        setSearchedBook(null);
-        return (<>
-        {<h1>That ISBN was not found!</h1>}
-        </>);
+        setErrorMessage(true);
+        return;
       }
+      setErrorMessage(false);
 
       const bookData = {
         user_id: localStorage.getItem('user_id'),
@@ -127,7 +121,8 @@ const AddBook = () => {
         </Button>
       </Form>
 
-      {searchedBook &&
+      {errorMessage ? <h2>That ISBN was not found!</h2> : null}
+        {searchedBook && 
         <ContainerShow show>
           <Container className='result-container'>
             <h2>
@@ -164,7 +159,7 @@ const AddBook = () => {
             </Card>
           </Container>
         </ContainerShow>
-      }
+        }
       {error && <div><h2>Oops, something went wrong</h2></div>}
     </>
   )
