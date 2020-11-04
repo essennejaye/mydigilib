@@ -2,6 +2,7 @@
   "name": "bookworms-bibliography",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",

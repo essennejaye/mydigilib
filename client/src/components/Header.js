@@ -8,11 +8,10 @@ const Styles = styled.div`
   .navbar {
     background-color: black;
   }
-  a,
   .navbar-brand,
-  .navbar-nav .nav-link {
+  .navbar-nav .nav-link
+   {
     color: white;
-
     &:hover {
       color: orange;
     }
@@ -37,7 +36,7 @@ const Header = () => {
     <>
       <Styles>
         <Navbar expand='lg'>
-          <Navbar.Brand as={Link} to='/'><h2>My DigiLib</h2></Navbar.Brand>
+          <Navbar.Brand as={StyledLink} to='/'><h2>My DigiLib</h2></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
@@ -45,7 +44,6 @@ const Header = () => {
                 <>
                   <Nav.Link as={StyledLink} to='/'>Home
                   </Nav.Link>
-
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to='/addbook'>Add a Book
