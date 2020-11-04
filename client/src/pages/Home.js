@@ -38,7 +38,7 @@ const Home = () => {
             5. If you’ve decided to ban yourself from buying new books, well every time you’re in a bookstore, look at your list and admire all the unread books you already own.<br /><br />
             6. Track where/when you bought the book, and help preserve memories associated with the purchase.<br /><br />
           </h5>
-          <p>Taken from an article by Emma Nichols | Jan 14, 2016 </p>
+            <p>Taken from an article by Emma Nichols | Jan 14, 2016<br />Photo by Perfecto Capucine from Pexels </p>
           </div>
         </div>
       </div>

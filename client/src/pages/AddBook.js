@@ -54,28 +54,6 @@ const AddBook = () => {
         setSearchInput('');
         setSearchedBook(null);
         return;
-        // return (
-        //   <>
-        //     <Form onSubmit={handleFormSubmit} className='text-center'>
-        //       <Form.Group className="form-group">
-        //         <Form.Label></Form.Label>
-        //         <h4>Please... enter the 13 digit ISBN without spaces or dashes!</h4>
-        //         <Form.Control
-        //           size='lg'
-        //           name='searchInput'
-        //           type="text"
-        //           placeholder="ISBN"
-        //           value={searchInput}
-        //           onChange={(e) => setSearchInput(e.target.value)}
-        //         />
-        //       </Form.Group>
-        //       <Button variant="primary" type="submit">
-        //         Submit
-        //       </Button>
-        //       <h1>Nothing Found!</h1>
-        //     </Form>
-        //   </>
-        // )
       }
 
       const bookData = {
@@ -166,13 +144,12 @@ const AddBook = () => {
                       className='btn-block btn-info'
                       onClick={() => handleAddBook()}>
                       Add This Book
-                  </Button>
+                    </Button>
                     <Button
                       className='btn-block btn-danger'
                       onClick={() => handleCancelBook()}>
-                      {/* window.location.assign(`/books/${localStorage.getItem('user_id')}`)}> */}
                       Cancel
-                  </Button>
+                    </Button>
                   </>
                 )}
               </Card.Body>
