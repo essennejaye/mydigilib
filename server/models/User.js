@@ -15,9 +15,9 @@ const userSchema = new Schema(
       match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
-      type: String, validate: [/a-zA-Z0-9/, 'Letters and number only!'],
-      minlength: 8,
-      maxlength: 20,
+      type: String, 
+      minlength: [8, 'Too few characters'],
+      maxlength: [20, 'Too many characters'],
       required: true,
     },
   },
