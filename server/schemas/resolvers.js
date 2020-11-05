@@ -16,7 +16,7 @@ const resolvers = {
     // get all users
     users: async () => {
       return User.find()
-      // .select('-__v -password')
+      .select('-__v -password')
     },
 
     // get user by username
@@ -56,10 +56,10 @@ const resolvers = {
         if (!user) {
           throw new AuthenticationError('Incorrect credentials');
         }
-        // const correctPw = await user.isCorrectPassword(password);
-        // if (!correctPw) {
-        //   throw new AuthenticationError('Incorrect credentials');
-        // }
+        const correctPw = await user.isCorrectPassword(password);
+        if (!correctPw) {
+          throw new AuthenticationError('Incorrect credentials');
+        }
         const token = signToken(user);
         return { token, user };
       },
@@ -72,13 +72,13 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       },
 
-      duplicateBook: async (parent, { bookISBN }, context) => {
-        if (context.user) {
-          const duplicatebook = await Book.findOne({ bookISBN: bookISBN })
-          return duplicatebook;
-        }
-        throw new AuthenticationError('Not logged in');
-      },
+      // duplicateBook: async (parent, { bookISBN }, context) => {
+      //   if (context.user) {
+      //     const duplicatebook = await Book.findOne({ bookISBN: bookISBN })
+      //     return duplicatebook;
+      //   }
+      //   throw new AuthenticationError('Not logged in');
+      // },
 
     removeBook: async (parent, { _id }, context) => {
       if (context.user) {

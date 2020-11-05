@@ -11,17 +11,21 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
 }
 
-a {
-  color: #000;
-}
 
 .form-group {
   width: 75%;
   padding: 30px;
   margin: auto;
 }
+/* jumbotron title */
 .title {
   font-size: 60px;
+}
+/* add book, login, signup */
+.error-text {
+  padding-top: 50px;
+  text-align: center;
+  color: red;
 }
 
 

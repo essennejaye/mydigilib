@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_BOOK } from '../utils/mutations';
 import { Form, Button, Card, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Styles = styled.div
-  `
+const ContainerShow = styled.div `
  .book-image {
    width: 500px;
    height: 500px;
@@ -15,7 +14,8 @@ const Styles = styled.div
    width: 500px;
    justify-content: 
  }
- div.result-container {
+ .result-container {
+   display: ${props => props.show ? 'block' : 'none'};
    width: fit-content;
    margin: 50px auto 0px auto;
  }
@@ -24,9 +24,11 @@ const Styles = styled.div
 const AddBook = () => {
 
   // create state for holding search result
-  const [searchedBook, setSearchedBook] = useState({});
+  const [searchedBook, setSearchedBook] = useState('');
   // create state for form
   const [searchInput, setSearchInput] = useState('');
+  // create state for error message
+  const [errorMessage, setErrorMessage] = useState(false);
 
   // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
@@ -46,11 +48,14 @@ const AddBook = () => {
         throw new Error('Oops, something went wrong!');
       }
       const { items } = await response.json();
-      const item = items[0];
+      const item = items ? items[0] : null;
 
       if (!item) {
-        throw new Error('Book was not retreived, Please try again!');
+        setSearchInput('');
+        setErrorMessage(true);
+        return;
       }
+      setErrorMessage(false);
 
       const bookData = {
         user_id: localStorage.getItem('user_id'),
@@ -69,8 +74,14 @@ const AddBook = () => {
       console.error(e);
     }
   };
+  // create function to cancel adding book to databse
+  const handleCancelBook = async () => {
+    setSearchedBook(null);
+    window.location.assign('/addbook');
+    return;
+  }
 
-  // create function to handle saving book to database
+  // create function to handle adding book to database
   const handleAddBook = async () => {
     const bookToAdd = searchedBook;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -91,56 +102,64 @@ const AddBook = () => {
 
   return (
     <>
-      <Styles>
-        <Form onSubmit={handleFormSubmit} className='text-center'>
-          <Form.Group className="form-group">
-            <Form.Label><h3>ISBN</h3></Form.Label>
-            <h4>Please enter the 13 digit ISBN without spaces or dashes!</h4>
-            <Form.Control
-              size='lg'
-              name='searchInput'
-              type="text"
-              placeholder="ISBN"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+      <Form onSubmit={handleFormSubmit} className='text-center'>
+        <Form.Group className="form-group">
+          <Form.Label></Form.Label>
+          <h4>Please enter the 13 digit ISBN without spaces or dashes!</h4>
+          <Form.Control
+            size='lg'
+            name='searchInput'
+            type="text"
+            placeholder="ISBN"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
         </Button>
-        </Form>
+      </Form>
 
-        <Container className=' result-container'>
-          <h2>
-            {searchedBook ?
-              `Results:`
-              : `Book not found`}
-          </h2>
-          <Card border='dark' className='book-card'>
-            {searchedBook.image ? (
-              <Card.Img src={searchedBook.image} alt={`The cover for ${searchedBook.title}`} variant='top'
-                className='book-image' />
-            ) : null}
-            <Card.Body>
-              <Card.Title>{searchedBook.title}</Card.Title>
-              <Card.Text>Authors: {searchedBook.authors}</Card.Text>
-              <Card.Text>Description {searchedBook.description}</Card.Text>
-              <Card.Text>Pages {searchedBook.pages}</Card.Text>
-              <Card.Text>Category {searchedBook.category}</Card.Text>
-              <Card.Text>Date Published {searchedBook.datePublish}</Card.Text>
-              <Card.Text>ISBN {searchedBook.bookISBN}</Card.Text>
-              {Auth.loggedIn() && (
-                <Button
-                  className='btn-block btn-info'
-                  onClick={() => handleAddBook()}>
-                  Add This Book
-                </Button>
-              )}
-            </Card.Body>
-          </Card>
-          {error && <div><h2>Oops, something went wrong</h2></div>}
-        </Container>
-      </Styles>
+      {errorMessage ? <h2 className='error-text'>That ISBN was not found!</h2> : null}
+        {searchedBook && 
+        <ContainerShow show>
+          <Container className='result-container'>
+            <h2>
+              Results:
+            </h2>
+            <Card border='dark' className='book-card'>
+              {searchedBook.image ? (
+                <Card.Img src={searchedBook.image} alt={`The cover for ${searchedBook.title}`} variant='top'
+                  className='book-image' />
+              ) : null}
+              <Card.Body>
+                <Card.Title>{searchedBook.title}</Card.Title>
+                <Card.Text>Authors: {searchedBook.authors}</Card.Text>
+                <Card.Text>Description: {searchedBook.description}</Card.Text>
+                <Card.Text>Pages: {searchedBook.pages}</Card.Text>
+                <Card.Text>Category: {searchedBook.category}</Card.Text>
+                <Card.Text>Date Published: {searchedBook.datePublish}</Card.Text>
+                <Card.Text>ISBN: {searchedBook.bookISBN}</Card.Text>
+                {Auth.loggedIn() && (
+                  <>
+                    <Button
+                      className='btn-block btn-info'
+                      onClick={() => handleAddBook()}>
+                      Add This Book
+                    </Button>
+                    <Button
+                      className='btn-block btn-danger'
+                      onClick={() => handleCancelBook()}>
+                      Cancel
+                    </Button>
+                  </>
+                )}
+              </Card.Body>
+            </Card>
+          </Container>
+        </ContainerShow>
+        }
+      {error && <div><h2>Oops, something went wrong</h2></div>}
     </>
   )
 }

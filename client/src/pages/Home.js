@@ -1,31 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import digitalBook from '../assets/digitalBook.svg'
+import books from '../assets/books.jpg'
+import { Container } from 'react-bootstrap';
 
 const Styles = styled.div`
-  div.background {
-    background: url(${digitalBook}) repeat;
-    background-size: 40px ;
-    border: 2px solid black
+  .homepage {
+    background: url(${books}) no-repeat;
+    background-size: cover;
+    color: white;
+    position: relative;
+    z-index: -2;
   }
-  div.transbox {
-    margin: 20px;
-    background-color: #ffffff;
-    border: 1px solid black;
-    opacity: 0.9;
+  .text-box {
+    margin: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px
   }
-  .transbox-text {
-    color: black;
-    font-weight: bold;
-    margin: 5%;
+  .overlay {
+    background-color: #000;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
   }
 `;
+
 const Home = () => {
   return (
     <Styles>
-      <div className='background'>
-        <div className='transbox'>
-          <div className='transbox-text'>
+      <div className='homepage'>
+        <div className='overlay'></div>
+        <Container fluid className='text-box'>
           <h2>WHY CATALOG BOOKS IN YOUR PERSONAL LIBRARY?</h2>
           <br />
           <h4>I can be both obsessive and proud when it comes to my book collection, but there are benefits to knowing exactly what books you have and where you have them.</h4>
@@ -38,9 +46,8 @@ const Home = () => {
             5. If you’ve decided to ban yourself from buying new books, well every time you’re in a bookstore, look at your list and admire all the unread books you already own.<br /><br />
             6. Track where/when you bought the book, and help preserve memories associated with the purchase.<br /><br />
           </h5>
-          <p>Taken from an article by Emma Nichols | Jan 14, 2016 </p>
-          </div>
-        </div>
+          <p>Taken from an article by Emma Nichols | Jan 14, 2016<br />Photo by Perfecto Capucine from Pexels </p>
+        </Container>
       </div>
     </Styles>
   )

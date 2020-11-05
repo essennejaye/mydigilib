@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
 const FootStyles = styled(Navbar)`
-  a, div, .navbar-nav .nav-link {
+  .nav-link {
     color: black;
     &:hover {
       color: orange;
     }
   }
-
 `
 
 const Footer = () => {

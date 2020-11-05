@@ -6,8 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 
-const Styles = styled.div
-  `
+const Styles = styled.div `
  .book-image {
    width: 300x;
    height: 300px;
@@ -17,6 +16,10 @@ const Styles = styled.div
  }
  h2 {
    text-align: center;
+ }
+ a {
+   color: black;
+   text-decoration: none;
  }
  `;
 
@@ -46,7 +49,7 @@ const BookList = (props) => {
         <h2>
           {books.length ?
             `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
-            : 'Please Add Some Books To Your Catalog'}
+            : 'Let\'s Add Some Books To Your Catalog'}
         </h2>
         <CardColumns>
           {books.map((book) => {
