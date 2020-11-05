@@ -17,6 +17,10 @@ const Styles = styled.div `
  h2 {
    text-align: center;
  }
+ a {
+   color: black;
+   text-decoration: none;
+ }
  `;
 
 const BookList = (props) => {
@@ -45,7 +49,7 @@ const BookList = (props) => {
         <h2>
           {books.length ?
             `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
-            : 'Please Add Some Books To Your Catalog'}
+            : 'Let\'s Add Some Books To Your Catalog'}
         </h2>
         <CardColumns>
           {books.map((book) => {

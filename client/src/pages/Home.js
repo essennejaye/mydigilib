@@ -31,7 +31,7 @@ const Styles = styled.div`
 const Home = () => {
   return (
     <Styles>
-      <div fluid className='homepage'>
+      <div className='homepage'>
         <div className='overlay'></div>
         <Container fluid className='text-box'>
           <h2>WHY CATALOG BOOKS IN YOUR PERSONAL LIBRARY?</h2>

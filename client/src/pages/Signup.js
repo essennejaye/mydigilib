@@ -29,6 +29,11 @@ const Signup = () => {
       });
       Auth.login(data.addUser);
     } catch (e) {
+      setFormState({
+        username: '',
+        email: '',
+        password: ''
+      })
       console.error(e);
     }
   };
@@ -84,7 +89,7 @@ const Signup = () => {
       <Button variant="primary" type="submit">
         Submit
       </Button>
-      {error && <div><h2>Signup failed</h2></div>}
+      {error && <div><h2 className='error-text'>Signup failed</h2></div>}
     </Form>
   );
 };

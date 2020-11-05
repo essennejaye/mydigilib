@@ -29,8 +29,11 @@ const Login = (props) => {
         variables: { ...formState }
       });
       Auth.login(data.login);
-
     } catch (e) {
+      setFormState({
+        email: '',
+        password: '',
+      });
       console.error(e);
     }
     // clear form values
@@ -75,7 +78,7 @@ const Login = (props) => {
       <Button variant="primary" type="submit">
         Submit
       </Button>
-      {error && <div><h2>Login failed</h2></div>}
+      {error && <div><h2 className='error-text'>Login failed</h2></div>}
     </Form>
   );
 }
