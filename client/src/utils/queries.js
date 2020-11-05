@@ -36,3 +36,4 @@ query book($_id: ID!) {
 }
 `;
 
+// add future queries on categories and sort by title

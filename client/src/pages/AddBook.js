@@ -5,8 +5,7 @@ import { ADD_BOOK } from '../utils/mutations';
 import { Form, Button, Card, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const ContainerShow = styled.div
-  `
+const ContainerShow = styled.div `
  .book-image {
    width: 500px;
    height: 500px;
@@ -121,7 +120,7 @@ const AddBook = () => {
         </Button>
       </Form>
 
-      {errorMessage ? <h2>That ISBN was not found!</h2> : null}
+      {errorMessage ? <h2 className='error-text'>That ISBN was not found!</h2> : null}
         {searchedBook && 
         <ContainerShow show>
           <Container className='result-container'>

@@ -23,14 +23,14 @@ export const ADD_USER = gql`
     }
   }
 `;
-
-export const DUPLICATEBOOK = gql`
-  mutation duplicateBook($bookISBN: String!) {
-    duplicateBook(bookISBN: $bookISBN) {
-      bookISBN
-    }
-  }
-`;
+// future mutation to check database for duplicate before adding to database
+// export const DUPLICATEBOOK = gql`
+//   mutation duplicateBook($bookISBN: String!) {
+//     duplicateBook(bookISBN: $bookISBN) {
+//       bookISBN
+//     }
+//   }
+// `;
 
 export const ADD_BOOK = gql`
   mutation addBook($bookData: BookInput!) {

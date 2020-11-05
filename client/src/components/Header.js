@@ -8,21 +8,17 @@ const Styles = styled.div`
   .navbar {
     background-color: black;
   }
-  .navbar-brand,
-  .navbar-nav .nav-link
-   {
-    color: white;
-    &:hover {
-      color: orange;
-    }
-  }
   .navbar-toggler-icon {
     background-color: white;
   }
 `;
 
 const StyledLink = styled(Link)`
-  color: white;
+  color: white !important;
+      &:hover {
+      color: orange !important;
+    }
+
   font-weight: bold;
   font-size: 24px;
 `;

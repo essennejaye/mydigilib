@@ -7,8 +7,7 @@ import styled from 'styled-components';
 import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const Styles = styled.div
-  `
+const Styles = styled.div `
  .book-image {
    width: 500px;
    height: 500px;
@@ -20,7 +19,16 @@ const Styles = styled.div
   div.result-container {
    width: fit-content;
  }
+  `;
 
+const StyledLink = styled(Link)`
+  color: black;
+      &:hover {
+      color: orange;
+      text-decoration: none;
+    }
+  font-weight: bold;
+  font-size: 24px;
 `;
 
 const SingleBook = (props) => {
@@ -56,7 +64,7 @@ const SingleBook = (props) => {
     <>
       <Styles>
         <Container className='result-container'>
-          <Link to={`/books/${localStorage.getItem('user_id')}`}><h2>Back to My List of Books</h2></Link>
+          <StyledLink to={`/books/${localStorage.getItem('user_id')}`}><h2>Back to My List of Books</h2></StyledLink>
           <Card border='dark' className='book-card'>
             {book.image ? (
               <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' className='book-image' />

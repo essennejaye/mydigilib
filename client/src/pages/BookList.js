@@ -6,8 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 
-const Styles = styled.div
-  `
+const Styles = styled.div `
  .book-image {
    width: 300x;
    height: 300px;
