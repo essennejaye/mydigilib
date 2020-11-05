@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_USER } from '../utils/mutations';
 import { Button, Form } from 'react-bootstrap';
@@ -7,6 +7,8 @@ import Auth from '../utils/auth';
 const Signup = () => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [addUser, { error }] = useMutation(ADD_USER);
+
+  const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -49,6 +51,7 @@ const Signup = () => {
           name='username'
           id='username'
           type="text"
+          ref={autoFocus}
           placeholder="Your username"
           value={formState.username}
           onChange={handleChange}

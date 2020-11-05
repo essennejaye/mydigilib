@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Auth from '../utils/auth';
 import { ADD_BOOK } from '../utils/mutations';
@@ -32,6 +32,8 @@ const AddBook = () => {
 
   // mutation for adding a book to the catalog
   const [addBook, { error }] = useMutation(ADD_BOOK);
+
+  const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
   // create method to search for book and set state on form submit
   const handleFormSubmit = async (event) => {
@@ -105,11 +107,12 @@ const AddBook = () => {
       <Form onSubmit={handleFormSubmit} className='text-center'>
         <Form.Group className="form-group">
           <Form.Label></Form.Label>
-          <h4>Please enter the 13 digit ISBN without spaces or dashes!</h4>
+          <h4>Please enter the 10 or 13 digit ISBN without spaces or dashes!</h4>
           <Form.Control
             size='lg'
             name='searchInput'
             type="text"
+            ref={autoFocus}
             placeholder="ISBN"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
