@@ -23,14 +23,6 @@ export const ADD_USER = gql`
     }
   }
 `;
-// future mutation to check database for duplicate before adding to database
-// export const DUPLICATEBOOK = gql`
-//   mutation duplicateBook($bookISBN: String!) {
-//     duplicateBook(bookISBN: $bookISBN) {
-//       bookISBN
-//     }
-//   }
-// `;
 
 export const ADD_BOOK = gql`
   mutation addBook($bookData: BookInput!) {
@@ -56,3 +48,10 @@ export const REMOVE_BOOK = gql`
   }
 `;
 
+export const SEARCH_DUPLICATEBOOK = gql`
+  mutation searchDuplicateBook($bookISBN: String!) {
+    searchDuplicateBook(bookISBN: $bookISBN) {
+      bookISBN
+    }
+  }
+`;

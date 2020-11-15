@@ -7,17 +7,34 @@ import styled from 'styled-components';
 import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const Styles = styled.div `
+const Styles = styled.div`
  .book-image {
    width: 500px;
    height: 500px;
  }
  .book-card {
    width: 500px;
-   justify-content: 
+   justify-content: center
  }
   div.result-container {
    width: fit-content;
+ }
+ @media  (max-width: 576px) {
+   .book-image {
+     width: 350px;
+     height: 350px;
+   }
+   .book-card {
+     width: 350px;
+   }
+   div.result-container {
+     width: 360px;
+     padding: 0px;
+     margin: 0px;
+   }
+   .btn-block {
+     width: 350px;
+   }
  }
   `;
 
@@ -63,7 +80,7 @@ const SingleBook = (props) => {
   return (
     <>
       <Styles>
-        <Container className='result-container'>
+        <Container fluid className='result-container'>
           <StyledLink to={`/books/${localStorage.getItem('user_id')}`}><h2>Back to My List of Books</h2></StyledLink>
           <Card border='dark' className='book-card'>
             {book.image ? (
