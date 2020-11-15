@@ -50,8 +50,8 @@ input BookInput {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addBook(bookData: BookInput!): Book
-    duplicateBook(bookISBN: String!): Book
     removeBook(_id: ID!): Book
+    searchDuplicateBook(bookISBN: String!): Book
   }
 `;
 module.exports = typeDefs;
