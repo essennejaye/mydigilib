@@ -46,7 +46,6 @@ const AddBook = () => {
       alert('You must enter a valid ISBN!');
       return false;
     }
-
     try {
       const duplicateBook = await searchDuplicateBook({
         variables: { bookISBN: searchInput }
@@ -59,7 +58,6 @@ const AddBook = () => {
     } catch (e) {
       console.error(e);
     }
-
     const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${searchInput}`
     try {
       const response = await fetch(url);
@@ -97,7 +95,7 @@ const AddBook = () => {
   // create function to cancel adding book to database
   const handleCancelBook = async () => {
     setSearchedBook(null);
-    window.location.assign('/addbook');
+    window.location.assign('/addbookISBN');
     return;
   }
 
