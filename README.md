@@ -18,12 +18,13 @@ Digitally Catalog Your Home Library
   
   ## Usage
   * The user is required to sign up by providing a username, email and password. 
-  * Once an account has been established, the user may add books to his database library by entering the 10 or 13 digit ISBN. 
-  * The program searches the Google books api for a match and if one is found it displays the result. 
-  * The user then has the option to add the book to their database or cancel the transaction. 
-  * A user may list the contents of their library from the List My Books page. The user may also select an individual book to view and that book may be deleted from that page. 
-  * When the user has finished entering books, they may log out.
   * The user may login by providing their email and username.
+  * Once an account has been established, the user may add books to their database library by entering the 10 or 13   digit ISBN on the Add Book ISBN page. 
+  * The user may also manually add a book to the catalog by entering information for a book on the Add Manual Book page.
+  * The application searches the Google books API for a match and if one is found it displays the result. 
+  * The user then has the option to add the book to their database or cancel the transaction. 
+  * A user may list the contents of their library from the List My Books page. The user may also select an individual book to view and the user may delete the book from the single book page. 
+  * When the user has finished entering books, they may log out.
   
   ## Technologies Used
   * Front-end
@@ -80,7 +81,7 @@ Digitally Catalog Your Home Library
         throw new AuthenticationError('You need to be logged in!');
       },
       
-      const Header = () => {
+const Header = () => {
   const logout = event => {
     event.preventDefault();
     Auth.logout();
@@ -99,8 +100,10 @@ Digitally Catalog Your Home Library
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
-                  <Nav.Link as={StyledLink} to='/addbook'>Add a Book
-                  </Nav.Link>
+                  <DropdownButton id="dropdown-basic-button" title="Add New Books">
+                    <Dropdown.Item href='/addbookisbn' className='drop-item'>Search for Books with ISBN</Dropdown.Item>
+                    <Dropdown.Item href='/addbookmanual' className='drop-item'>Add Books Manually</Dropdown.Item>
+                  </DropdownButton>
                   <Nav.Link as={StyledLink} to='/' onClick={logout}>Logout
                   </Nav.Link>
                 </>
@@ -112,13 +115,14 @@ Digitally Catalog Your Home Library
                     </Nav.Link>
                   </>
                 )}
-            </Nav >
-          </Navbar.Collapse >
-        </Navbar >
-      </Styles >
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Styles>
     </>
   );
 };
+export default Header;
 ````
   
    

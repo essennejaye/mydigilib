@@ -55,15 +55,10 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
-
                   <DropdownButton id="dropdown-basic-button" title="Add New Books">
                     <Dropdown.Item href='/addbookisbn' className='drop-item'>Search for Books with ISBN</Dropdown.Item>
                     <Dropdown.Item href='/addbookmanual' className='drop-item'>Add Books Manually</Dropdown.Item>
                   </DropdownButton>
-
-                  {/* remove before prod
-                   <Nav.Link as={StyledLink} to='/addnewbook'>Add New Books
-                  </Nav.Link> */}
                   <Nav.Link as={StyledLink} to='/' onClick={logout}>Logout
                   </Nav.Link>
                 </>
@@ -75,10 +70,10 @@ const Header = () => {
                     </Nav.Link>
                   </>
                 )}
-            </Nav >
-          </Navbar.Collapse >
-        </Navbar >
-      </Styles >
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Styles>
     </>
   );
 };
