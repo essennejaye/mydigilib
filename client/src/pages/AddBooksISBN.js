@@ -4,6 +4,7 @@ import Auth from '../utils/auth';
 import { ADD_BOOK, SEARCH_DUPLICATEBOOK } from '../utils/mutations';
 import { Form, Button, Card, Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ContainerShow = styled.div`
  .book-image {
@@ -21,7 +22,17 @@ const ContainerShow = styled.div`
  }
  `;
 
-const AddBook = () => {
+const StyledLink = styled(Link)`
+  color: red !important;
+      &:hover {
+      color: orange !important;
+    }
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+`;
+
+const AddBooksISBN = () => {
 
   // create state for holding search result
   const [searchedBook, setSearchedBook] = useState('');
@@ -41,18 +52,19 @@ const AddBook = () => {
   // create method to search for book and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setSearchInput(searchInput.trim());
 
     if (!searchInput) {
-      alert('You must enter a valid ISBN!');
-      return false;
+      setErrorMessage(true);
+      return;
     }
-
     try {
       const duplicateBook = await searchDuplicateBook({
         variables: { bookISBN: searchInput }
       })
+
       if (duplicateBook && duplicateBook["data"] && duplicateBook.data["searchDuplicateBook"]) {
-        alert('You already have this book');
+        alert('You\'ve already cataloged this book!');
         setSearchInput('');
         return;
       }
@@ -97,19 +109,19 @@ const AddBook = () => {
   // create function to cancel adding book to database
   const handleCancelBook = async () => {
     setSearchedBook(null);
-    window.location.assign('/addbook');
+    window.location.assign('/addbookISBN');
     return;
   }
 
   // create function to handle adding book to database
   const handleAddBook = async () => {
     const bookToAdd = searchedBook;
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
-      alert('You are not logged in!')
       return false;
     }
+
     try {
       await addBook({
         variables: { bookData: bookToAdd }
@@ -124,7 +136,6 @@ const AddBook = () => {
     <>
       <Form onSubmit={handleFormSubmit} className='text-center'>
         <Form.Group className="form-group">
-          {/* <Form.Label></Form.Label> */}
           <h4>Please enter the 10 or 13 digit ISBN without spaces or dashes!</h4>
           <Form.Control
             size='lg'
@@ -141,7 +152,14 @@ const AddBook = () => {
         </Button>
       </Form>
 
-      {errorMessage ? <h2 className='error-text'>That ISBN was not found!</h2> : null}
+      {errorMessage ?
+        <>
+          <h2 className='error-text'>That ISBN was not found!</h2>
+          <h2 className='error-text'>
+            <StyledLink to='/addbookmanual'>Click Here to Add Book Manually</StyledLink>
+          </h2>
+        </>
+        : null}
       {searchedBook &&
         <ContainerShow show>
           <Container className='result-container'>
@@ -155,10 +173,18 @@ const AddBook = () => {
               ) : null}
               <Card.Body>
                 <Card.Title>{searchedBook.title}</Card.Title>
-                <Card.Text>Authors: {searchedBook.authors}</Card.Text>
+                <Card.Text>
+                  {searchedBook.authors.length === 1 ?
+                    'Author: ' : 'Authors: '}
+                  {searchedBook.authors.join(', ')}
+                </Card.Text>
                 <Card.Text>Description: {searchedBook.description}</Card.Text>
                 <Card.Text>Pages: {searchedBook.pages}</Card.Text>
-                <Card.Text>Category: {searchedBook.category}</Card.Text>
+                <Card.Text>
+                  {searchedBook.category.length === 1 ?
+                    'Category: ' : 'Categories: '}
+                  {searchedBook.category.join(', ')}
+                </Card.Text>
                 <Card.Text>Date Published: {searchedBook.datePublish}</Card.Text>
                 <Card.Text>ISBN: {searchedBook.bookISBN}</Card.Text>
                 {Auth.loggedIn() && (
@@ -185,4 +211,4 @@ const AddBook = () => {
   )
 }
 
-export default AddBook;
+export default AddBooksISBN;

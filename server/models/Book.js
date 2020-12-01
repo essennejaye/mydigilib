@@ -29,6 +29,7 @@ const bookSchema = new Schema(
       }
     ],
     image: {
+      data: Buffer,
       type: String
     },
     pages: {

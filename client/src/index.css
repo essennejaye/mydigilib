@@ -5,6 +5,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'PT Sans', sans-serif;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 
 .small {
   font-weight: 300;
@@ -18,14 +22,30 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto;
 }
 /* jumbotron title */
+
 .title {
   font-size: 60px;
 }
-/* add book, login, signup */
+
+/* add isbn book page */
+
 .error-text {
   padding-top: 50px;
   text-align: center;
   color: red;
 }
 
-
+.new-isbn {
+  text-decoration: none;
+}
+/* add manual book page */
+.manual-form-group {
+  padding: 20px 30px;
+}
+.file-input {
+  margin-left: 339px;
+  padding: 5px 0px 10px 0px;
+}
+.manual-button {
+  margin: 10px 20px 0px 20px;
+}
