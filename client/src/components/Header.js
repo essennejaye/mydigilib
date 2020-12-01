@@ -14,6 +14,9 @@ const Styles = styled.div`
   .navbar-toggler-icon {
     background-color: white;
   }
+  .selected {
+    color: red
+  }
   #dropdown-basic-button {
     background-color: black;
     font-weight: 100; 
@@ -62,7 +65,8 @@ const Header = () => {
             <Nav className="ml-auto">
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={StyledLink} to='/'>Home
+                  <Nav.Link as={StyledLink} to='/'>
+                  Home
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
