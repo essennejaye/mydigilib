@@ -42,12 +42,12 @@ Digitally Catalog Your Home Library
   * For answers to common questions about this project please see my GitHub repository at https://github.com/essennejaye or send questions to essennejaye@outlook.com.
     
   ## Screenshots
-    ![](client/src/assets/mydigilibss1.png)
-    ![](client/src/assets/mydigilibss2.png)
-    ![](client/src/assets/mydigilibss3.png)
-    ![](client/src/assets/mydigilibss4.png)
-    ![](client/src/assets/mydigilibss5.png)
-    ![](client/src/assets/mydigilibss6.png)  
+![](client/src/assets/mydigilibss1.png)
+![](client/src/assets/mydigilibss2.png)
+![](client/src/assets/mydigilibss3.png)
+![](client/src/assets/mydigilibss4.png)
+![](client/src/assets/mydigilibss5.png)
+![](client/src/assets/mydigilibss6.png)  
     
   ## Code Snippets
   ````
