@@ -9,8 +9,6 @@ const Signup = () => {
   const [addUser, { error }] = useMutation(ADD_USER);
   const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
-  const autoFocus = useCallback(el => el ? el.focus() : null, []);
-
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,7 +51,6 @@ const Signup = () => {
           id='username'
           ref={autoFocus}
           type="text"
-          ref={autoFocus}
           placeholder="Your username"
           value={formState.username}
           onChange={handleChange}

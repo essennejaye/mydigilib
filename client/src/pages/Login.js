@@ -9,8 +9,6 @@ const Login = (props) => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
-  const autoFocus = useCallback(el => el ? el.focus() : null, []);
-
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
