@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { FaChevronLeft } from 'react-icons/fa';
 import { QUERY_BOOK } from '../utils/queries';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Container, Card, Button } from 'react-bootstrap';
@@ -7,17 +8,39 @@ import styled from 'styled-components';
 import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const Styles = styled.div `
+const Styles = styled.div`
  .book-image {
    width: 500px;
    height: 500px;
  }
  .book-card {
    width: 500px;
-   justify-content: 
+   justify-content: center
  }
   div.result-container {
    width: fit-content;
+ }
+ svg {
+  width: .5em;
+  padding: 0px 4px 0px 0px;
+  margin: 0px 5px 0px 0px;
+ }
+ @media  (max-width: 576px) {
+   .book-image {
+     width: 350px;
+     height: 350px;
+   }
+   .book-card {
+     width: 350px;
+   }
+   div.result-container {
+     width: 360px;
+     padding: 0px;
+     margin: 0px;
+   }
+   .btn-block {
+     width: 350px;
+   }
  }
   `;
 
@@ -63,17 +86,30 @@ const SingleBook = (props) => {
   return (
     <>
       <Styles>
-        <Container className='result-container'>
-          <StyledLink to={`/books/${localStorage.getItem('user_id')}`}><h2>Back to My List of Books</h2></StyledLink>
+        <Container fluid className='result-container'>
+          <StyledLink to={`/books/${localStorage.getItem('user_id')}`}>
+            <h2>
+              <FaChevronLeft />
+              Back to My List of Books
+            </h2>
+          </StyledLink>
           <Card border='dark' className='book-card'>
             {book.image ? (
               <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' className='book-image' />
             ) : null}
             <Card.Body>
               <Card.Title>{book.title}</Card.Title>
-              <Card.Text>Authors: {book.authors}</Card.Text>
+              <Card.Text>
+                {book.authors.length === 1 ?
+                  'Author: ' : 'Authors: '}
+                {book.authors.join(', ')}
+              </Card.Text>
               <Card.Text>Description: {book.description}</Card.Text>
-              <Card.Text>Category: {book.category}</Card.Text>
+              <Card.Text>
+                {book.category.length === 1 ?
+                  'Category: ' : 'Categories: '}
+                {book.category.join(', ')}
+              </Card.Text>
               <Card.Text>Pages: {book.pages}</Card.Text>
               <Card.Text>Date Published: {book.datePublish}</Card.Text>
               <Card.Text>ISBN: {book.bookISBN}</Card.Text>

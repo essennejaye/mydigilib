@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, Dropdown, DropdownButton } from 'react-bootstrap';
 
 const Styles = styled.div`
   .navbar {
@@ -11,6 +11,20 @@ const Styles = styled.div`
   .navbar-toggler-icon {
     background-color: white;
   }
+  #dropdown-basic-button {
+    background-color: black;
+    font-weight: 100; 
+    font-size: 24px;
+    padding: 9px 8px 0px 8px;
+    border: none;
+    color: white;
+  }
+  #dropdown-basic-button:hover {
+    color:orange;
+  }
+  .dropdown-item:hover {
+    color: orange;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -18,7 +32,6 @@ const StyledLink = styled(Link)`
       &:hover {
       color: orange !important;
     }
-
   font-weight: bold;
   font-size: 24px;
 `;
@@ -42,8 +55,15 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
-                  <Nav.Link as={StyledLink} to='/addbook'>Add a Book
-                  </Nav.Link>
+
+                  <DropdownButton id="dropdown-basic-button" title="Add New Books">
+                    <Dropdown.Item href='/addbookisbn' className='drop-item'>Search for Books with ISBN</Dropdown.Item>
+                    <Dropdown.Item href='/addbookmanual' className='drop-item'>Add Books Manually</Dropdown.Item>
+                  </DropdownButton>
+
+                  {/* remove before prod
+                   <Nav.Link as={StyledLink} to='/addnewbook'>Add New Books
+                  </Nav.Link> */}
                   <Nav.Link as={StyledLink} to='/' onClick={logout}>Logout
                   </Nav.Link>
                 </>

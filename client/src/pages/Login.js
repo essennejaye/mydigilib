@@ -2,19 +2,18 @@ import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
-
 import { Button, Form } from 'react-bootstrap';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
+  const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
   const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
@@ -44,7 +43,6 @@ const Login = (props) => {
       password: '',
     });
   }
-
   return (
     <Form onSubmit={handleFormSubmit} className='text-center'>
       <h4>Login</h4>
@@ -60,9 +58,7 @@ const Login = (props) => {
           value={formState.email}
           onChange={handleChange}
         />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-       </Form.Text>
+
       </Form.Group>
       <Form.Group className='form-group'>
         <Form.Label>Password</Form.Label>
@@ -77,6 +73,7 @@ const Login = (props) => {
           onChange={handleChange}
         />
       </Form.Group>
+      
       <Button variant="primary" type="submit">
         Submit
       </Button>

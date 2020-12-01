@@ -20,6 +20,7 @@ const bookSchema = new Schema(
     ],
     description: {
       type: String,
+      default: '',
       required: true
     },
     authors: [
@@ -28,6 +29,7 @@ const bookSchema = new Schema(
       }
     ],
     image: {
+      data: Buffer,
       type: String
     },
     pages: {

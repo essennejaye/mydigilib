@@ -12,7 +12,7 @@ class AuthService {
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); 
+    return !!token && !this.isTokenExpired(token);
   }
 
   // check if token is expired
@@ -20,8 +20,11 @@ class AuthService {
     try {
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
+        this.handleTimeout()
         return true;
-      } else return false;
+      } else {
+        return false;
+      }
     } catch (err) {
       return false;
     }
@@ -45,6 +48,13 @@ class AuthService {
     localStorage.removeItem('id_token');
     // this will reload the page and reset the state of the application
     window.location.assign('/');
+  }
+
+  handleTimeout() {
+    // if token expires before user logs out, alert user and return to login page
+    localStorage.removeItem('id_token');
+    window.location.assign('/login')
+    alert('Your login has expired, please login again!');
   }
 }
 

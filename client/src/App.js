@@ -12,7 +12,8 @@ import Home from './pages/Home';
 import NoMatch from './pages/NoMatch';
 import BookList from './pages/BookList';
 import SingleBook from './pages/SingleBook';
-import AddBook from './pages/AddBook';
+import AddBooksISBN from './pages/AddBooksISBN';
+import AddBooksManual from './pages/AddBooksManual';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -42,7 +43,8 @@ function App() {
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path='/books/:user_id' component={BookList} />
-              <Route exact path="/addbook" component={AddBook} />
+              <Route exact path="/addbookisbn" component={AddBooksISBN} />
+              <Route exact path="/addbookmanual" component={AddBooksManual} />
               <Route exact path="/book/:_id" component={SingleBook} />
               <Route component={NoMatch} />
             </Switch>

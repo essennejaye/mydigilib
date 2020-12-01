@@ -7,6 +7,7 @@ import Auth from '../utils/auth';
 const Signup = () => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [addUser, { error }] = useMutation(ADD_USER);
+  const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
   const autoFocus = useCallback(el => el ? el.focus() : null, []);
 
@@ -50,6 +51,7 @@ const Signup = () => {
           className='form-input'
           name='username'
           id='username'
+          ref={autoFocus}
           type="text"
           ref={autoFocus}
           placeholder="Your username"
