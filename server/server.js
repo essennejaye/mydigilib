@@ -10,13 +10,20 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 
 const { ApolloServer } = require('apollo-server-express');
+// create new Apollo server and pass in schema to define data and how requests are resolved
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
 
-server.applyMiddleware({ app });
+// integrate Apollo server with the Express server as middleware to create graphql endpoint
+server.applyMiddleware({
+  app,
+  bodyParserConfig: {
+    limit: '100mb'
+  }
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -31,9 +38,9 @@ app.get('*', (req, res) => {
 });
 
 db.once('open', () => {
-  console.log('Database connected:')
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
+    // log where  to go test GQL API
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });

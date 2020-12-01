@@ -53,9 +53,7 @@ const Login = (props) => {
           value={formState.email}
           onChange={handleChange}
         />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-       </Form.Text>
+
       </Form.Group>
       <Form.Group className='form-group'>
         <Form.Label>Password</Form.Label>
@@ -70,6 +68,7 @@ const Login = (props) => {
           onChange={handleChange}
         />
       </Form.Group>
+      
       <Button variant="primary" type="submit">
         Submit
       </Button>

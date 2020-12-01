@@ -5,6 +5,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'PT Sans', sans-serif;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 
 .form-group {
   width: 75%;
@@ -18,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 60px;
 }
 
-/* add book page */
+/* add isbn book page */
 
 .error-text {
   padding-top: 50px;

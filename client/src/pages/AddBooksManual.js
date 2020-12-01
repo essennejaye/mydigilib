@@ -9,7 +9,7 @@ const AddBooksManual = () => {
   // create state for holding form data
   const [bookFormState, setBookFormState] = useState({
     user_id: localStorage.getItem('user_id'), title: '', authors: [], description: '', image: '',
-    pages: '', bookISBN: '', datePublish: '', category: ''
+    pages: 0, bookISBN: '', datePublish: '', category: ['None']
   });
 
   // mutation for adding a book to the catalog
@@ -19,22 +19,44 @@ const AddBooksManual = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBookFormState({
-      ...bookFormState,
-      [name]: value
-    })
+
+    if (e.target.name === 'image') {
+      var image = e.target.files[0];
+      if (image) {
+        var reader = new FileReader();
+        reader.addEventListener('load', async function (e) {
+          var dataUrl = e.target.result;
+          setBookFormState({ ...bookFormState, [name]: dataUrl })
+        });
+        reader.readAsDataURL(image);
+      }
+    }
+     else {
+      setBookFormState({
+        ...bookFormState,
+        [name]: value
+      })
+    }
+  }
+
+  // create function to cancel adding book to database
+  const handleClearBook = async () => {
+    setBookFormState(null);
+    window.location.assign('/addbookmanual');
+    return;
   }
 
   const manualAddBook = async () => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      alert('You are not logged in!')
-      return false;
-    }
     const bookData = bookFormState;
     bookData.pages = parseInt(bookData.pages);
+    console.log('book data is ', bookData);
 
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    
     try {
       // execute addBook mutation and pass in data from form
       await addBook({
@@ -45,13 +67,6 @@ const AddBooksManual = () => {
     } catch (e) {
       console.error(e);
     }
-  }
-
-  // create function to cancel adding book to database
-  const handleClearBook = async () => {
-    setBookFormState(null);
-    window.location.assign('/addbookmanual');
-    return;
   }
 
   return (
@@ -127,9 +142,10 @@ const AddBooksManual = () => {
           <Form.Group className='manual-form-group'>
             <Form.Label>Category</Form.Label>
             <div className='book-options'>
-              <select value={setBookFormState.category} onChange={handleChange}>
-                <option value="fiction">Fiction</option>
-                <option value="non-fiction">Non-Fiction</option>
+              <select name='category' value={setBookFormState.category} onChange={handleChange}>
+                <option value="none">None</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Non-fiction">Non-Fiction</option>
               </select>
             </div>
 
@@ -145,7 +161,7 @@ const AddBooksManual = () => {
                 />
               </div>
             ))} */}
-            
+
           </Form.Group>
 
           <Form.Group className='manual-form-group'>
@@ -155,7 +171,7 @@ const AddBooksManual = () => {
               name='datePublish'
               id='datePublish'
               type='text'
-              placeholder='MM/DD/YYYY'
+              placeholder='MM/DD/YYYY or YYYY'
               value={setBookFormState.datePublish}
               onChange={handleChange}
             />
@@ -173,13 +189,15 @@ const AddBooksManual = () => {
               onChange={handleChange}
             />
           </Form.Group>
+
           <Form.Group className='manual-form-group'>
             <Form.Label>Book Image</Form.Label>
             <FormControl
               className='form-input, file-input'
-              name='img'
-              id='img'
+              name='image'
+              id='image'
               type='file'
+              accept="image/png, image/jpeg, image/jpg, image/gif"
               value={setBookFormState.image}
               onChange={handleChange}
             />
@@ -187,17 +205,18 @@ const AddBooksManual = () => {
               Please upload an image from your files!
             </Form.Text>
           </Form.Group>
+
           <>
             {Auth.loggedIn() && (
               <>
                 <Button
-                  variant='primary' type='submit'
+                  variant='primary'
                   className='manual-button'
                   onClick={() => manualAddBook()}>
                   Add This Book
                 </Button>
                 <Button
-                  variant='danger' type='submit'
+                  variant='danger'
                   className='manual-button'
                   onClick={() => handleClearBook()}>
                   Cancel/Clear Form
@@ -207,7 +226,7 @@ const AddBooksManual = () => {
           </>
         </Form>
       </Container>
-      {error && <div><h2>Oops, something went wrong</h2></div>}
+      { error && <div><h2>Oops, something went wrong</h2></div>}
     </>
   )
 }

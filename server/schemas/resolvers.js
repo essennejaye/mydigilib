@@ -10,7 +10,7 @@ const resolvers = {
           .select('-__v -password');
         return userData;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     // get all users
@@ -29,9 +29,8 @@ const resolvers = {
     books: async (parent, { user_id }, context) => {
       if (context.user) {
         return Book.find({ user_id })
-          .sort('title: 1')
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     // get single book for logged in user
@@ -39,7 +38,7 @@ const resolvers = {
       if (context.user) {
         return Book.findOne({ _id: _id })
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in!');
     },
     // check if user is entering duplicate book
     // duplicateBook: async (parent, { bookISBN }, context) => {
@@ -90,12 +89,13 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+    // used mutation instead of query because LazyQuery returns void first time called
     searchDuplicateBook: async (parent, { bookISBN }, context) => {
       if (context.user) {
         const searchDuplicatebook = await Book.findOne({ bookISBN: bookISBN })
         return searchDuplicatebook;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in!');
     },
   }
 };
