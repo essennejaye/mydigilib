@@ -11,7 +11,7 @@ import Auth from '../utils/auth';
 const Styles = styled.div`
  .book-image {
    width: 500px;
-   height: 500px;
+   height: 400px;
  }
  .book-card {
    width: 500px;
@@ -19,6 +19,7 @@ const Styles = styled.div`
  }
   div.result-container {
    width: fit-content;
+   margin: auto;
  }
  svg {
   width: .5em;
@@ -36,7 +37,6 @@ const Styles = styled.div`
    div.result-container {
      width: 360px;
      padding: 0px;
-     margin: 0px;
    }
    .btn-block {
      width: 350px;

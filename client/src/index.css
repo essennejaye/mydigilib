@@ -15,37 +15,53 @@ a {
   font-style: italic;
 }
 
-
 .form-group {
   width: 75%;
   padding: 30px;
   margin: auto;
 }
-/* jumbotron title */
+/* .navbar {
+  background-color: black;
+} */
 
+/* jumbotron title */
 .title {
   font-size: 60px;
 }
+.container-fluid {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
 
 /* add isbn book page */
-
 .error-text {
   padding-top: 50px;
   text-align: center;
   color: red;
 }
-
 .new-isbn {
   text-decoration: none;
 }
+
 /* add manual book page */
 .manual-form-group {
   padding: 20px 30px;
 }
-.file-input {
-  margin-left: 339px;
-  padding: 5px 0px 10px 0px;
+.centered-file-input {
+  margin: auto;
+  width: 187.5px;
 }
 .manual-button {
   margin: 10px 20px 0px 20px;
+}
+@media  (max-width: 576px) {
+  .file-input {
+    margin: 0px;
+  }
+  .text-box {
+    padding-bottom: 10px;
+    margin-left: 1px;
+  }
 }

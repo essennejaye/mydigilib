@@ -8,9 +8,10 @@ const Styles = styled.div`
     background: url(${digbook1}) no-repeat;
     background-size: cover;
     color: white;
-    height: 200px;
+    height: 220px;
     position: relative;
     z-index: -2;
+    text-align: center;
   }
   .overlay {
     background-color: #000;

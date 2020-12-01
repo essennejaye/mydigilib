@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
-import { Nav, Navbar, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Nav, Navbar, Dropdown, NavDropdown } from 'react-bootstrap';
 
 const Styles = styled.div`
   .navbar {
     background-color: black;
+    position: fixed;
+    z-index: 1020;
+    width: 100%;
   }
   .navbar-toggler-icon {
     background-color: white;
@@ -24,6 +27,14 @@ const Styles = styled.div`
   }
   .dropdown-item:hover {
     color: orange;
+  }
+  @media  (max-width: 576px) {
+    #dropdown-basic-button {
+      padding: 8px 0px 0px 0px
+    }
+    .navbar {
+      position: relative;
+    }
   }
 `;
 
@@ -55,10 +66,10 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
-                  <DropdownButton id="dropdown-basic-button" title="Add New Books">
+                  <NavDropdown id="dropdown-basic-button" title="Add New Books">
                     <Dropdown.Item href='/addbookisbn' className='drop-item'>Search for Books with ISBN</Dropdown.Item>
                     <Dropdown.Item href='/addbookmanual' className='drop-item'>Add Books Manually</Dropdown.Item>
-                  </DropdownButton>
+                  </NavDropdown>
                   <Nav.Link as={StyledLink} to='/' onClick={logout}>Logout
                   </Nav.Link>
                 </>

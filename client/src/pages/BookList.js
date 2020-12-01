@@ -1,18 +1,20 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_BOOKS } from '../utils/queries';
-import { Container, CardColumns, Card } from 'react-bootstrap';
+import { Container, Card, CardDeck } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 
 const Styles = styled.div`
  .book-image {
-   width: 300x;
-   height: 300px;
+   height: 250px;
  }
  .book-card {
-   justify-content: 
+   min-width: 12rem;
+   max-width: 12rem;
+   margin: 10px auto;
+   
  }
  h2 {
    text-align: center;
@@ -21,6 +23,15 @@ const Styles = styled.div`
    color: black;
    text-decoration: none;
  }
+ @media  (max-width: 576px) {
+   .book-image {
+     min-width: 18rem;
+     height: 18rem;
+   }
+   .book-card {
+     min-width: 18rem;
+   }
+
  `;
 
 const BookList = (props) => {
@@ -49,7 +60,7 @@ const BookList = (props) => {
               `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
               : 'Let\'s Add Some Books To Your Catalog'}
           </h2>
-          <CardColumns>
+          <CardDeck>
             {books.map((book) => {
               return (
                 <Card key={book._id} border='dark' className='book-card'>
@@ -71,7 +82,7 @@ const BookList = (props) => {
 
               )
             })}
-          </CardColumns>
+          </CardDeck>
         </Container>
       </Styles>
     </>

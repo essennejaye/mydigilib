@@ -192,8 +192,8 @@ const AddBooksManual = () => {
 
           <Form.Group className='manual-form-group'>
             <Form.Label>Book Image</Form.Label>
-            <FormControl
-              className='form-input, file-input'
+            <Form.File
+              className='centered-file-input'
               name='image'
               id='image'
               type='file'
