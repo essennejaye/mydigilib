@@ -6,7 +6,6 @@ import { useParams, Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 import ScrollTopArrow from '../components/ScrollTopArrow';
-import '../../App.css'
 
 const Styles = styled.div`
  .book-image {

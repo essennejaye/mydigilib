@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {FaArrowCircleUp} from 'react-icons/fa';
-import '../../';
-
 
 const ScrollTopArrow = () =>{
 
@@ -27,7 +25,7 @@ const ScrollTopArrow = () =>{
   };
 
   return (
-        <FaArrowCircleUp className="scrollTop" onClick={scrollTop} style={{height: 40, display: showScroll ? 'flex' : 'none'}}/>
+        <FaArrowCircleUp className="scrollTop" onClick={scrollTop} style={{display: showScroll ? 'flex' : 'none'}}/>
   );
 }
 

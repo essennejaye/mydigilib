@@ -15,7 +15,7 @@ const Styles = styled.div`
   }
   .overlay {
     background-color: #000;
-    opacity: 0.6;
+    opacity: 0.5;
     position: absolute;
     top: 0;
     left: 0;
@@ -23,6 +23,7 @@ const Styles = styled.div`
     right: 0;
     z-index: -1;
   }
+  
 `;
 
  const Jumbotron = () => (

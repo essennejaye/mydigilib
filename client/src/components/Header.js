@@ -10,23 +10,25 @@ const Styles = styled.div`
     position: fixed;
     z-index: 1020;
     width: 100%;
+    opacity: .8;
   }
   .navbar-toggler-icon {
     background-color: white;
   }
-  .selected {
-    color: red
-  }
-  #dropdown-basic-button {
-    background-color: black;
-    font-weight: 100; 
+  #dropdown-basic {
+    font-weight: bold; 
     font-size: 24px;
     padding: 9px 8px 0px 8px;
-    border: none;
     color: white;
   }
-  #dropdown-basic-button:hover {
+  #dropdown-basic:hover {
     color:orange;
+  }
+  #dropdown-basic:focus {
+    color:orange;
+  }
+  .dropdown-item {
+    background-color: white;
   }
   .dropdown-item:hover {
     color: orange;
@@ -45,6 +47,9 @@ const StyledLink = styled(Link)`
   color: white !important;
       &:hover {
       color: orange !important;
+    }
+      &:focus {
+        color: orange !important;
     }
   font-weight: bold;
   font-size: 24px;
@@ -70,7 +75,7 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link as={StyledLink} to={`/books/${localStorage.getItem('user_id')}`}>List My Books
                   </Nav.Link>
-                  <NavDropdown id="dropdown-basic-button" title="Add New Books">
+                  <NavDropdown id="dropdown-basic" title="Add New Books">
                     <Dropdown.Item href='/addbookisbn' className='drop-item'>Search for Books with ISBN</Dropdown.Item>
                     <Dropdown.Item href='/addbookmanual' className='drop-item'>Add Books Manually</Dropdown.Item>
                   </NavDropdown>

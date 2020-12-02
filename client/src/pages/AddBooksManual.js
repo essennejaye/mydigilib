@@ -202,7 +202,7 @@ const AddBooksManual = () => {
               onChange={handleChange}
             />
             <Form.Text className="text-muted">
-              Please upload an image from your files!
+              Please upload an image from your files! <br /> File must be smaller than 50MB!
             </Form.Text>
           </Form.Group>
 

@@ -27,6 +27,7 @@ a {
 /* jumbotron title */
 .title {
   font-size: 60px;
+  margin-top: 35px;
 }
 .container-fluid {
   width: 100%;
@@ -63,5 +64,31 @@ a {
   .text-box {
     padding-bottom: 10px;
     margin-left: 1px;
+  }
+}
+.scrollTop {
+  position: fixed; 
+  width: 100%;
+  bottom: 20px;
+  align-items: center;
+  height: 40px;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.4s;
+  opacity: 0.5;
+}
+
+.scrollTop:hover{
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
