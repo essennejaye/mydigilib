@@ -40,14 +40,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // check if user is entering duplicate book
-    // duplicateBook: async (parent, { bookISBN }, context) => {
-    //   if (context.user) {
-    //     const duplicatebook = await Book.findOne({ bookISBN: bookISBN })
-    //     return duplicatebook;
-    //   }
-    //   throw new AuthenticationError('Not logged in');
-    // },
   },
 
   Mutation: {

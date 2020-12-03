@@ -35,13 +35,5 @@ query book($_id: ID!) {
   }
 }
 `;
-// query to check database for duplicate before adding to database
-// export const DUPLICATEBOOK = gql`
-//   query duplicateBook($bookISBN: String!) {
-//     duplicateBook(bookISBN: $bookISBN) {
-//       bookISBN
-//     }
-//   }
-// `;
 
 // add future queries on categories and sort by title
