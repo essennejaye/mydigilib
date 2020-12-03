@@ -8,13 +8,16 @@ import styled from 'styled-components';
 import ScrollTopArrow from '../components/ScrollTopArrow';
 
 const Styles = styled.div`
+.book-list {
+  justify-content: center;
+}
  .book-image {
    height: 250px;
  }
  .book-card {
-   min-width: 12rem;
+   min-width: 11rem;
    max-width: 12rem;
-   margin: 10px auto;
+   margin: 10px 6px;
  }
  h2 {
    text-align: center;
@@ -30,6 +33,7 @@ const Styles = styled.div`
    }
    .book-card {
      min-width: 18rem;
+     margin: 15px auto;
    }
  }
  `;
@@ -61,7 +65,7 @@ const BookList = (props) => {
               `Your Library Catalog has ${books.length} ${books.length === 1 ? 'book' : 'books'}`
               : 'Let\'s Add Some Books To Your Catalog'}
           </h2>
-          <CardDeck>
+          <CardDeck className='book-list'>
             {books.map((book) => {
               return (
                 <Card key={book._id} border='dark' className='book-card'>

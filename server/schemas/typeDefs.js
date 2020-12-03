@@ -38,16 +38,6 @@ input BookInput {
   datePublish: String
   }
 
-  // input SortBooksByInput {
-  //   title: Sort
-  //   category: Sort
-  //   authors: Sort
-  // }
-  // enum Sort {
-  //   asc
-  //   desc
-  // }
-
   type Query {
     me: User
     users: [User]

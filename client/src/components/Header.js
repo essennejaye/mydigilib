@@ -34,7 +34,7 @@ const Styles = styled.div`
     color: orange;
   }
   @media  (max-width: 576px) {
-    #dropdown-basic-button {
+    #dropdown-basic {
       padding: 8px 0px 0px 0px
     }
     .navbar {
