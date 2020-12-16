@@ -1,4 +1,4 @@
-# bookworms-bibliography/ My digiLib
+# My DigiLib
 Digitally Catalog Your Home Library
 
   ## Table of Contents
@@ -14,7 +14,7 @@ Digitally Catalog Your Home Library
   * An node.js application to digitally catalog your home library. It performs a search for your book based on the ISBN.
   
   ## Installation
-  * This project is deployed on Heroku at https://whispering-forest-25290.herokuapp.com.
+  * This project is deployed on Heroku at https://mydigilib.herokuapp.com.
   
   ## Usage
   * The user is required to sign up by providing a username, email and password. 
